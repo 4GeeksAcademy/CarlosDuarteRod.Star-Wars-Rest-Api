@@ -66,3 +66,19 @@ class Planets(db.Model):
         return { "id": self.id,
             "username": self.name,
                 "email": self.url}
+    
+class Favorites(db.Model):
+    __tablename__ = 'favorites'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(250), nullable = False)
+    url = db.Column(db.String(250), nullable = False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
+    user = db.relationship(User)
+
+    def __repr__(self):
+        return '<favorites %r>' % self.name
+    
+    def serialize(self):
+        return { "id": self.id,
+            "username": self.name,
+                "email": self.url}
